@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Stream;
 
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.CascadeType;
@@ -47,15 +48,15 @@ public class Student implements Serializable {
 
     public void addOrUpdateMarks(Subject subject, Integer marks) {
         Stream<Marks> marksStream = this.marks.stream().filter(mark_i -> {
-            return mark_i.getSubject().getSubjectId() == subject.getSubjectId();
+            return mark_i.getSubject().getSubjectId().equals(subject.getSubjectId());
         });
         if (marksStream.count() == 1) {
             marksStream.toList().get(0).setMarks(marks);
-        } else if (marksStream.count() == 0) {
+        } else if (marksStream.findAny().isEmpty()) {
             this.marks.add(new Marks(this, subject, marks));
         } else {
             throw new IllegalArgumentException(
-                    "There marks for this subjet for this student already exist. You might be interested on modification");
+                    "There marks for this subject for this student already exist. You might be interested on modification");
         }
     }
 }
