@@ -29,7 +29,11 @@ public class StudentController {
     }
 
     @GetMapping(path = "/get-student")
-    public ResponseEntity<Student> getStudent(@RequestParam("studentId") Integer studentId){
-        return ResponseEntity<Student>(studentService.getStudent(),HttpStatus.OK);
+    public ResponseEntity<Student> getStudent(@RequestParam("studentId") Long studentId){
+        try{
+            return ResponseEntity.ok(studentService.getStudent(studentId));
+        }catch(Exception e){
+            return ResponseEntity.badRequest().body(null);
+        }
     }
 }
