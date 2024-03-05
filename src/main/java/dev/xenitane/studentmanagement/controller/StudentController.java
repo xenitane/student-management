@@ -62,10 +62,20 @@ public class StudentController {
     }
 
     @PatchMapping(path = "/update-marks")
-    public ResponseEntity<Map<String,Object>> updateStudentMarks(@RequestBody Map<String,Object> studentMarks){
-        try{
-            return new ResponseEntity<>(Map.of("student",studentService.updateMarks(studentMarks)),HttpStatus.OK);
-        }catch(Exception e){
+    public ResponseEntity<Map<String, Object>> updateStudentMarks(@RequestBody Map<String, Object> studentMarks) {
+        try {
+            return new ResponseEntity<>(Map.of("student", studentService.updateMarks(studentMarks)), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(Map.of("error", e.getMessage()), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PatchMapping(path = "/update-marks-for-all")
+    public ResponseEntity<Map<String, Object>> updateStudentsMarks(@RequestBody Map<String, Object> studentsMarks) {
+        try {
+            return new ResponseEntity<>(Map.of("students", studentService.updateMarksForAll(studentsMarks)),
+                    HttpStatus.OK);
+        } catch (Exception e) {
             return new ResponseEntity<>(Map.of("error", e.getMessage()), HttpStatus.BAD_REQUEST);
         }
     }
