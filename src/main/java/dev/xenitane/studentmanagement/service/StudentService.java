@@ -62,4 +62,7 @@ public class StudentService {
         throw new IllegalArgumentException("Invalid data sent.");
     }
 
+    public Object updateMarks(Map<String, Object> studentMarks) {
+        return null;
+    }
 }
