@@ -1,6 +1,5 @@
 package dev.xenitane.studentmanagement.controller;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -42,17 +41,21 @@ public class StudentController {
     }
 
     @GetMapping(path = "/get-student")
-    public ResponseEntity<Student> getStudent(@RequestParam("studentId") Long studentId) {
+    public ResponseEntity<Student> getStudent(@RequestParam("roll-num") Long rollNumber, @RequestParam("class") Integer studentClass) {
         try {
-            return ResponseEntity.ok(studentService.getStudent(studentId));
+            return ResponseEntity.ok(studentService.getStudent(studentClass,rollNumber));
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
         }
     }
 
-    @GetMapping(path = "get-students")
-    public ResponseEntity<List<Student>> getStudents(@RequestParam("class") Integer student_class) {
-        return null;
+    @GetMapping(path = "/get-students")
+    public ResponseEntity<Map<String,Object>> getStudentsOfClass(@RequestParam("class") Integer student_class) {
+        try{
+            return ResponseEntity.ok(studentService.getAllStudentsOfClass(student_class));
+        } catch (Exception e){
+            return ResponseEntity.badRequest().body(Map.of("error",e.getMessage()));
+        }
     }
 
 }
