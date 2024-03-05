@@ -45,9 +45,9 @@ public class StudentService {
                 || student.getStudentName().isEmpty()) {
             throw new IllegalArgumentException("There are some empty fields.");
         }
-        try{
+        try {
             return studentRepository.save(student);
-        } catch(Exception e) {
+        } catch (Exception e) {
             throw new IllegalArgumentException("Student already exist");
         }
     }
@@ -57,11 +57,7 @@ public class StudentService {
         if (studentListIteratorObject instanceof Iterable) {
             Iterable<Student> studentListIterator = (Iterable<Student>) studentListObject.get("students");
             for (Student student : studentListIterator) {
-                try {
-                    this.addStudent(student);
-                } catch (Exception e) {
-                    throw e;
-                }
+                this.addStudent(student);
             }
         }
         throw new IllegalArgumentException("Invalid data sent.");
