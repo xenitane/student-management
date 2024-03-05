@@ -9,31 +9,19 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.IdClass;
 import jakarta.persistence.Table;
 import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "student")
-@IdClass(StudentId.class)
-public class Student implements Serializable {
-    @JsonProperty("id")
+@Table(name = "subject")
+public class Subject implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long studentId;
+    @JsonProperty("id")
+    private Long subjectId;
 
     @JsonProperty("name")
-    @Column(nullable = false)
-    private String studentName;
-
-    @Id
-    @JsonProperty("class")
-    @Column(nullable = false)
-    private Integer studentClass;
-
-    @Id
-    @Column(nullable = false)
-    @JsonProperty("roll-number")
-    private Integer studentRollNumber;
+    @Column(unique = true, nullable = false)
+    private String subjectName;
 }

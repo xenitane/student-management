@@ -45,11 +45,9 @@ public class StudentService {
                 || student.getStudentName().isEmpty()) {
             throw new IllegalArgumentException("There are some empty fields.");
         }
-        Optional<Student> optionalStudent = studentRepository.findByStudentClassAndStudentRollNumber(
-                student.getStudentClass(), student.getStudentRollNumber());
-        if (optionalStudent.isEmpty()) {
+        try{
             return studentRepository.save(student);
-        } else {
+        } catch(Exception e) {
             throw new IllegalArgumentException("Student already exist");
         }
     }
