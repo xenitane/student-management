@@ -1,10 +1,13 @@
 package dev.xenitane.studentmanagement.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import dev.xenitane.studentmanagement.service.StudentService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,19 +21,24 @@ public class StudentController {
     private StudentService studentService;
 
     @PostMapping(path = "/add-student", consumes = "Application/json", produces = "Application/json")
-    public ResponseEntity<Student> addStudent(@RequestBody Student student) {
+    public ResponseEntity<Map<String, Object>> addStudent(@RequestBody Student student) {
         try {
-            
+            student = studentService.addStudent(student);
+            return new ResponseEntity<>(Map.of("student", student), HttpStatus.CREATED);
         } catch (Exception e) {
-            
+            return new ResponseEntity<>(Map.of("error", e.getMessage()), HttpStatus.BAD_REQUEST);
         }
-        return null;
+
     }
 
     @PostMapping(path = "/add-students", produces = "Application/json", consumes = "Application/json")
-    public ResponseEntity<List<Student>> addStudents(@RequestBody Object studentList) {
-
-        return null;
+    public ResponseEntity<Map<String, Object>> addStudents(@RequestBody Map<String, Object> studentList) {
+        try {
+            List<Student> students = studentService.addStudents(studentList);
+            return new ResponseEntity<>(Map.of("students", students), HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(Map.of("error", e.getMessage()), HttpStatus.BAD_REQUEST);
+        }
     }
 
     @GetMapping(path = "/get-student")

@@ -3,6 +3,8 @@ package dev.xenitane.studentmanagement.service;
 import dev.xenitane.studentmanagement.model.Student;
 import dev.xenitane.studentmanagement.repository.StudentRepository;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,5 +44,20 @@ public class StudentService {
         } else {
             throw new IllegalArgumentException("Student already exist");
         }
+    }
+
+    public List<Student> addStudents(Map<String, Object> studentListObject) throws Exception {
+        Object studentListIteratorObject = studentListObject.get("students");
+        if (studentListIteratorObject instanceof Iterable) {
+            Iterable<Student> studentListIterator = (Iterable<Student>) studentListObject.get("students");
+            for (Student student : studentListIterator) {
+                try {
+                    this.addStudent(student);
+                } catch (Exception e) {
+                    throw e;
+                }
+            }
+        }
+        throw new IllegalArgumentException("Invalid data sent.");
     }
 }
