@@ -16,18 +16,26 @@ public class StudentService {
     @Autowired
     private StudentRepository studentRepository;
 
-    public Student getStudent(Long studentId) {
-        if (studentId == null) {
-            throw new NullPointerException("Please enter data");
+    public Student getStudent(Integer studentClass, Integer studentRollNumber) throws Exception {
+        if (studentClass <= 0 || studentRollNumber <= 0) {
+            throw new IllegalArgumentException("invalid data provided");
         }
-        return studentRepository.findById(studentId).orElseThrow(() -> {
-            return new NullPointerException("not found");
-        });
+        return studentRepository.findByStudentClassAndStudentRollNumber(studentClass, studentRollNumber)
+                .orElseThrow(() -> {
+                    return new NullPointerException("No student with such details is found.");
+                });
+    }
+
+    public List<Student> getAllStudentsByClass(Integer studentClass) throws Exception {
+        if (studentClass <= 0) {
+            throw new IllegalArgumentException("invalid data provided");
+        }
+        return studentRepository.findAllByStudentClass(studentClass);
     }
 
     public Student addStudent(Student student) throws Exception {
         if (student == null) {
-            throw new NullPointerException("No data provided.");
+            throw new IllegalArgumentException("No data provided.");
         }
         if (student.getStudentName() == null) {
             throw new IllegalArgumentException("There are some empty fields.");
