@@ -61,4 +61,13 @@ public class StudentController {
         }
     }
 
+    @PatchMapping(path = "/update-marks")
+    public ResponseEntity<Map<String,Object>> updateStudentMarks(@RequestBody Map<String,Object> studentMarks){
+        try{
+            return new ResponseEntity<>(Map.of("student",studentService.updateMarks(studentMarks)),HttpStatus.OK);
+        }catch(Exception e){
+            return new ResponseEntity<>(Map.of("error", e.getMessage()), HttpStatus.BAD_REQUEST);
+        }
+    }
+
 }
