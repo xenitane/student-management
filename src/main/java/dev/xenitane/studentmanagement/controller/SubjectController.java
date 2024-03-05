@@ -3,7 +3,6 @@ package dev.xenitane.studentmanagement.controller;
 import java.util.List;
 import java.util.Map;
 
-import dev.xenitane.studentmanagement.model.Student;
 import dev.xenitane.studentmanagement.model.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
