@@ -41,20 +41,23 @@ public class StudentController {
     }
 
     @GetMapping(path = "/get-student")
-    public ResponseEntity<Student> getStudent(@RequestParam("roll-num") Long rollNumber, @RequestParam("class") Integer studentClass) {
+    public ResponseEntity<Map<String, Object>> getStudent(@RequestParam("roll-num") Integer rollNumber,
+            @RequestParam("class") Integer studentClass) {
         try {
-            return ResponseEntity.ok(studentService.getStudent(studentClass,rollNumber));
+            return new ResponseEntity<>(Map.of("student", studentService.getStudent(studentClass, rollNumber)),
+                    HttpStatus.OK);
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(null);
+            return new ResponseEntity<>(Map.of("error", e.getMessage()), HttpStatus.BAD_REQUEST);
         }
     }
 
     @GetMapping(path = "/get-students")
-    public ResponseEntity<Map<String,Object>> getStudentsOfClass(@RequestParam("class") Integer student_class) {
-        try{
-            return ResponseEntity.ok(studentService.getAllStudentsOfClass(student_class));
-        } catch (Exception e){
-            return ResponseEntity.badRequest().body(Map.of("error",e.getMessage()));
+    public ResponseEntity<Map<String, Object>> getStudentsOfClass(@RequestParam("class") Integer student_class) {
+        try {
+            return new ResponseEntity<>(Map.of("students", studentService.getAllStudentsByClass(student_class)),
+                    HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(Map.of("error", e.getMessage()), HttpStatus.BAD_REQUEST);
         }
     }
 

@@ -69,6 +69,4 @@ public class StudentService {
         throw new IllegalArgumentException("Invalid data sent.");
     }
 
-    public Map<String, Object> getAllStudentsOfClass(Integer studentClass) {
-    }
 }
