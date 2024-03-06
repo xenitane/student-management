@@ -44,7 +44,7 @@ public class StudentService {
         if (student.getStudentName() == null) {
             throw new IllegalArgumentException("There are some empty fields.");
         }
-        student.setStudentName(student.getStudentName().trim());
+        student.setStudentName(student.getStudentName().toLowerCase().trim());
         if (student.getStudentClass() <= 0 || student.getStudentRollNumber() <= 0
                 || student.getStudentName().isEmpty()) {
             throw new IllegalArgumentException("There are some empty fields.");

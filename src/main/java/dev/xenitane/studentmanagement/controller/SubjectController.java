@@ -48,7 +48,7 @@ public class SubjectController {
     }
 
     @PostMapping(path = "/add-subjects", produces = "Application/json", consumes = "Application/json")
-    public ResponseEntity<Map<String, Object>> addSubjects(@RequestParam Map<String,Object> newsubjectList) {
+    public ResponseEntity<Map<String, Object>> addSubjects(@RequestBody Map<String,Object> newsubjectList) {
         try {
             List<Subject> subjects = subjectService.addSubjects(newsubjectList);
             return new ResponseEntity<>(Map.of("subjects", subjects), HttpStatus.CREATED);

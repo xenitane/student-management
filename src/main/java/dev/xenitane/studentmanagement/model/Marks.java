@@ -17,7 +17,7 @@ import lombok.Data;
 public class Marks implements Serializable {
 
     @EmbeddedId
-    private MarksId marksId;
+    private MarksId id;
 
     @JsonProperty("student-id")
     @ManyToOne(fetch = FetchType.LAZY)
@@ -31,7 +31,7 @@ public class Marks implements Serializable {
     private Integer marks;
 
     public Marks(Student student, Subject subject, Integer marks) {
-        this.marksId = new MarksId(student.getStudentId(), subject.getSubjectId());
+        this.id = new MarksId(student.getStudentId(), subject.getSubjectId());
         this.student = student;
         this.subject = subject;
         this.marks = marks;

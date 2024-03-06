@@ -19,7 +19,7 @@ public class SubjectService {
         if (subject == null || subject.getSubjectName() == null) {
             throw new IllegalArgumentException("No data entered.");
         }
-        subject.setSubjectName(subject.getSubjectName().trim());
+        subject.setSubjectName(subject.getSubjectName().toLowerCase().trim());
         if (subject.getSubjectName().isEmpty()) {
             throw new IllegalArgumentException("No data entered.");
         }
@@ -49,7 +49,7 @@ public class SubjectService {
         if (subjectName == null) {
             throw new IllegalArgumentException("Invalid data sent.");
         }
-        subjectName = subjectName.trim();
+        subjectName = subjectName.toLowerCase().trim();
         if (subjectName.isEmpty()) {
             throw new IllegalArgumentException("Invalid data sent.");
         }
