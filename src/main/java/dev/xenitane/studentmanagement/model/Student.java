@@ -17,12 +17,14 @@ import jakarta.persistence.Id;
 import jakarta.persistence.IdClass;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.Builder;
 import lombok.Data;
 
 @Data
 @Entity
 @Table(name = "student")
 @IdClass(StudentId.class)
+@Builder
 public class Student implements Serializable {
     @JsonProperty("id")
     @Id

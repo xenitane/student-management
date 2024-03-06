@@ -60,8 +60,13 @@ public class StudentService {
         Object studentListIteratorObject = studentListObject.get("students");
         List<Student> students = new ArrayList<>();
         if (studentListIteratorObject instanceof Iterable) {
-            Iterable<Student> studentListIterator = (Iterable<Student>) studentListObject.get("students");
-            for (Student student : studentListIterator) {
+            Iterable<Map<String, Object>> studentListIterator = (Iterable<Map<String, Object>>) studentListIteratorObject;
+            for (Map<String, Object> studentMap : studentListIterator) {
+                Student student = Student.builder()
+                        .studentName((String) studentMap.get("name"))
+                        .studentClass((Integer) studentMap.get("class"))
+                        .studentRollNumber((Integer) studentMap.get("roll-number"))
+                        .build();
                 students.add(this.addStudent(student));
             }
             return students;

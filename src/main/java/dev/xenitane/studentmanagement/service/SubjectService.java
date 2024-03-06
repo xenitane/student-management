@@ -1,5 +1,6 @@
 package dev.xenitane.studentmanagement.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -32,11 +33,14 @@ public class SubjectService {
 
     public List<Subject> addSubjects(Map<String, Object> subjectListObject) throws Exception {
         Object subjectListIteratorObject = subjectListObject.get("subjects");
+        List<Subject> subjects = new ArrayList<>();
         if (subjectListIteratorObject instanceof Iterable) {
-            Iterable<Subject> subjectListIterable = (Iterable<Subject>) subjectListIteratorObject;
-            for (Subject subject : subjectListIterable) {
-                this.addSubject(subject);
+            Iterable<Map<String, Object>> subjectListIterable = (Iterable<Map<String, Object>>) subjectListIteratorObject;
+            for (Map<String, Object> subjectMap : subjectListIterable) {
+                Subject subject = Subject.builder().subjectName((String) subjectMap.get("name")).build();
+                subjects.add(this.addSubject(subject));
             }
+            return subjects;
         }
         throw new IllegalArgumentException("Invalid data sent.");
     }
@@ -55,7 +59,11 @@ public class SubjectService {
     }
 
     public List<Subject> getAllSubjects() throws Exception {
-        return subjectRepository.findAll();
+        List<Subject> subjects = subjectRepository.findAll();
+        subjects.sort((a, b) -> {
+            return (int) (a.getSubjectId() - b.getSubjectId());
+        });
+        return subjects;
     }
 
 }
