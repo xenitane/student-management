@@ -90,7 +90,7 @@ public class StudentService {
                 if (subjectId == null || subjectId <= 0) {
                     throw new IllegalArgumentException("invalid data provided");
                 }
-                Subject subject = subjectRepository.findById(subjectId).orElseThrow(() -> {
+                Subject subject = subjectRepository.findBySubjectId(subjectId).orElseThrow(() -> {
                     return new IllegalArgumentException("invalid data provided");
                 });
                 Integer marks = (Integer) marksData.get("marks");
