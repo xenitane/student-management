@@ -27,6 +27,7 @@ public class Subject implements Serializable {
     @JsonProperty("id")
     private Long subjectId;
 
+    @Id
     @JsonProperty("name")
     @Column(unique = true, nullable = false)
     private String subjectName;
